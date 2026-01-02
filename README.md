@@ -68,6 +68,11 @@ python simulator.py -p 9999
 python main.py -p 9999
 ```
 
+### Running Unit Tests
+```bash
+python -m unittest tests/test_system.py
+```
+
 ### Maintenance Console Access
 - Navigate to the "Maintenance" tab
 - Click "Unlock Console"
