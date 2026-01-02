@@ -1,31 +1,46 @@
+import os
 import time
 import logging
 import smtplib
+from dotenv import load_dotenv
 from PyQt6.QtWidgets import QSystemTrayIcon, QStyle, QApplication
 from PyQt6.QtGui import QIcon
 from email.mime.text import MIMEText
 from twilio.rest import Client
 
+# Load environment variables from .env file if present
+load_dotenv()
+
 class NotificationManager:
+    """
+    Manages multi-channel notifications (Email, SMS, Desktop).
+    
+    Input: Optional parent widget for system tray integration
+    Output: None
+    """
     def __init__(self, parent=None):
         self.parent = parent
         self.tray_icon = None
         self.last_alert_time = {} # {sensor_id: timestamp}
-        self.cooldown = 10.0 # Seconds between alerts for same sensor (Anti-Spam)
+        self.cooldown = 10.0 # Cooldown in seconds
+        
+        # Email Configuration from Environment Variables
         self.email_config = {
-            "enabled": False,
-            "sender": "your-email@gmail.com",
-            "password": "your-app-password-here",
-            "recipients": ["recipient@example.com"],
-            "smtp_server": "smtp.gmail.com",
-            "smtp_port": 587
+            "enabled": os.environ.get("EMAIL_ENABLED", "False").lower() == "true",
+            "sender": os.environ.get("EMAIL_SENDER", "your-email@gmail.com"),
+            "password": os.environ.get("EMAIL_PASSWORD", ""),
+            "recipients": os.environ.get("EMAIL_RECIPIENTS", "recipient@example.com").split(","),
+            "smtp_server": os.environ.get("EMAIL_SMTP_SERVER", "smtp.gmail.com"),
+            "smtp_port": int(os.environ.get("EMAIL_SMTP_PORT", 587))
         }
+        
+        # SMS Configuration from Environment Variables
         self.sms_config = {
-            "enabled": False,
-            "sid": "your-twilio-sid",
-            "token": "your-twilio-token",
-            "from": "+1234567890",
-            "to": "+0987654321"
+            "enabled": os.environ.get("SMS_ENABLED", "False").lower() == "true",
+            "sid": os.environ.get("SMS_TWILIO_SID", ""),
+            "token": os.environ.get("SMS_TWILIO_TOKEN", ""),
+            "from": os.environ.get("SMS_TWILIO_FROM", "+1234567890"),
+            "to": os.environ.get("SMS_TWILIO_TO", "+0987654321")
         }
         
         self._setup_tray()

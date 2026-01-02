@@ -86,30 +86,32 @@ python -m unittest tests/test_system.py
 
 ## Configuration
 
-### Email Notifications
-Edit `core/notifications.py`:
-```python
-self.email_config = {
-    "enabled": True,
-    "sender": "your-email@gmail.com",
-    "password": "your-app-password",  # Use Google App Password
-    "recipients": ["recipient@example.com"],
-    "smtp_server": "smtp.gmail.com",
-    "smtp_port": 587
-}
+The system uses environment variables for sensitive credentials. You can set these in a `.env` file in the root directory.
+
+### Environment Variables (.env)
+
+Create a `.env` file and add the following keys:
+
+```ini
+# Email Configuration
+EMAIL_ENABLED=False
+EMAIL_SENDER=your-email@gmail.com
+EMAIL_PASSWORD=your-app-password-here
+EMAIL_RECIPIENTS=recipient1@example.com,recipient2@example.com
+EMAIL_SMTP_SERVER=smtp.gmail.com
+EMAIL_SMTP_PORT=587
+
+# SMS Configuration (Twilio)
+SMS_ENABLED=False
+SMS_TWILIO_SID=your-twilio-sid
+SMS_TWILIO_TOKEN=your-twilio-token
+SMS_TWILIO_FROM=+1234567890
+SMS_TWILIO_TO=+0987654321
 ```
 
-### SMS Notifications
-Configure Twilio credentials in `core/notifications.py`:
-```python
-self.sms_config = {
-    "enabled": True,
-    "sid": "your-twilio-sid",
-    "token": "your-twilio-token",
-    "from": "+1234567890",
-    "to": "+0987654321"
-}
-```
+> [!TIP]
+> For Gmail, you must use an **App Password**. See the [Google Account Security](https://myaccount.google.com/apppasswords) page to generate one.
+
 
 ## Remote Commands
 
