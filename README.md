@@ -178,10 +178,6 @@ SIM_CONFIG = {
 }
 ```
 
-## License
-
-This project was developed as part of the Si-Ware assessment.
-
 ## Author
 
 Mohamed Ibrahim
