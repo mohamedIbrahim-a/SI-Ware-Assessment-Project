@@ -79,6 +79,35 @@ python main.py -p 9999
 python -m unittest tests/test_system.py
 ```
 
+## Command Line Interface (CLI)
+
+Both the simulator and the dashboard support command-line arguments for flexible configuration.
+
+### Sensor Simulator (`simulator.py`)
+
+| Argument | Flag | Default | Description |
+|----------|------|---------|-------------|
+| Port | `-p`, `--port` | `9999` | The TCP port the simulator listens on. |
+| Update Rate | `-r`, `--rate` | `0.5` | How often (in seconds) data is pushed to clients. |
+| Sensor Count | `-n`, `--count` | `10` | Total sensors to simulate (dynamic generation). |
+
+**Example**: Run with 20 sensors and a 1.0s update rate:
+```bash
+python simulator.py --count 20 --rate 1.0
+```
+
+### Dashboard GUI (`main.py`)
+
+| Argument | Flag | Default | Description |
+|----------|------|---------|-------------|
+| Host | `--host` | `127.0.0.1` | The IP address of the sensor simulator. |
+| Port | `-p`, `--port` | `9999` | The port the dashboard connects to. |
+
+**Example**: Connect to a remote simulator on port 8080:
+```bash
+python main.py --host 192.168.1.5 --port 8080
+```
+
 ### Maintenance Console Access
 - Navigate to the "Maintenance" tab
 - Click "Unlock Console"
