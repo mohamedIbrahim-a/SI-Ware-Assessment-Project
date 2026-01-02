@@ -27,8 +27,8 @@ A real-time sensor monitoring and control system with remote maintenance capabil
 Siware_task/
 ├── core/
 │   ├── sensor_config.py    # Sensor definitions and configuration
-│   ├── comm_thread.py       # Client communication thread
-│   └── notifications.py     # Multi-channel notification manager
+│   ├── comm_thread.py      # Client communication thread
+│   └── notifications.py    # Multi-channel notification manager
 ├── gui/
 │   └── dashboard.py         # Main dashboard UI
 ├── simulator.py             # Sensor data simulator (server)
@@ -50,7 +50,13 @@ Siware_task/
 python -m venv .venv
 
 # Activate (Windows)
-.\.venv\Scripts\activate
+# PowerShell:
+.\.venv\Scripts\Activate.ps1
+# CMD:
+.\.venv\Scripts\activate.bat
+
+# Activate (Linux/macOS)
+source .venv/bin/activate
 
 # Install dependencies
 pip install -r requirements.txt

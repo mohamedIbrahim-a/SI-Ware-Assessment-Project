@@ -15,7 +15,7 @@ class TestSensorSystem(unittest.TestCase):
 
     def test_api_output_structure(self):
         """
-        Verify that SenatorSimulator.generate_data() returns the expected dictionary structure.
+        Verify that SensorSimulator.generate_data() returns the expected dictionary structure.
         
         Input: None (calls generate_data)
         Output: Asserts dictionary structure and required keys
